@@ -3,7 +3,7 @@
 from sqlalchemy import String, Column, ForeignKey
 from sqlalchemy.orm import relationship
 
-from base_model import Base, BaseModel
+from models.base_model import Base, BaseModel
 
 
 class Track(Base, BaseModel):

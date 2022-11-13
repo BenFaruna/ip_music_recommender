@@ -21,4 +21,7 @@ class BaseModel:
 
     def to_dict(self):
         '''converts class into a dictionary'''
-        return self.__dict__.copy()
+        new_dict = self.__dict__.copy()
+        if "_sa_instance_state" in new_dict:
+            del new_dict["_sa_instance_state"]
+        return new_dict

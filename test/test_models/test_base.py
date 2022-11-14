@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 '''module containing tests for base_model module'''
 import unittest
+import MySQLdb as sql
 
 from models.base_model import BaseModel
+from models.artist import Artist
 
 
-class TestBaseModelSuite(unittest.TestCase):
+class TestBaseModel(unittest.TestCase):
     '''test cases for base_model module'''
 
     def test_object_creation_without_params(self):
@@ -31,7 +33,7 @@ class TestBaseModelSuite(unittest.TestCase):
         str_rep = "[{}] {}".format(a.__class__.__name__, a.__dict__)
         self.assertEqual(str_rep, str(a))
 
-    def test_dicttionary_representation(self):
+    def test_dictionary_representation(self):
         '''test dictionary representation of objects'''
         a = BaseModel()
         b = BaseModel(name='not empty', note='contain kwargs')

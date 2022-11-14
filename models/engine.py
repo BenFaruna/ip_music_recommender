@@ -20,7 +20,7 @@ class Storage:
 
     def __init__(self):
         self.__engine = create_engine(
-            'mysql+mysqldb://root:neodynamics@localhost/music_recommender')
+            'mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db')
 
     def all(self, cls=None):
         """query on the current database session"""

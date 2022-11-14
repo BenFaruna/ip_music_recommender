@@ -41,6 +41,18 @@ class Storage:
         """delete from the current database session obj if not None"""
         if obj is not None:
             self.__session.delete(obj)
+            self.save()
+
+    def get(self, cls, id):
+        '''returns the object of a particular class
+        from the database using the id'''
+        if type(cls) == str:
+            cls = classes.get(cls, None)
+            if cls == None:
+                return
+
+        result = self.__session.get(cls, id)
+        return result 
 
     def new(self, obj):
         '''add object to the current database session'''

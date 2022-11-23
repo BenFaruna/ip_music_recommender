@@ -1,9 +1,47 @@
 import spotipy
 
 from spotipy import SpotifyClientCredentials
+from spotipy.exceptions import SpotifyException
+
+from sqlalchemy.exc import IntegrityError
+
+from models import storage
+from models.artist import Artist
+from models.track import Track
 
 auth_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(auth_manager=auth_manager)
+
+
+def save_json_to_database(obj):
+    '''
+    data in obj are being saved to data base from obj
+    '''
+    track = {}
+    artist = {}
+    if 'artist_id' in obj:
+        artist['id'] = obj.get('artist_id')
+        artist['name'] = obj.get('artist_name')
+        new_artist = Artist(**artist)
+        try:
+            storage.new(new_artist)
+        except IntegrityError:
+            pass
+
+    if 'id' in obj:
+        track['id'] = obj.get('id')
+        track['title'] = obj.get('title')
+        track['preview_url'] = obj.get('preview_url')
+        track['image_url'] = obj.get('image_url')
+        track['artist_id'] = obj.get('artist_id')
+        new_track = Track(**track)
+        storage.new(new_track)
+
+    try:
+        storage.save()
+    except IntegrityError:
+        storage.rollback()
+        storage.save()
 
 
 def search(query, type="track", limit=10):
@@ -15,23 +53,8 @@ def search(query, type="track", limit=10):
     result = sp.search(query, type=type, limit=limit)
 
     if result and type == "track":
-        result = result.get("tracks", {}).get("items", [])
-        tracks = []
-        for track in result:
-            track_details = {}
-            track_details['id'] = track.get('id')
-            track_details['title'] = track.get('name', 'NO TITLE')
-            track_details['preview_url'] = track.get('preview_url')
-            track_details['artist_id'] = track.get('artists')[0].get('id')
-            track_details['artist_name'] = track.get('artists')[0].get('name')
-
-            try:
-                track_details['images_url'] = track.get('album').get('images')[0].get('url')
-            except IndexError:
-                track_details['images_url'] = None
-        
-            tracks.append(track_details)
-
+        tracks = get_details_from_json(result)
+        save_json_to_database(tracks)
         return tracks
 
     elif type == "artist":
@@ -39,8 +62,9 @@ def search(query, type="track", limit=10):
         result = result.get('artists').get('items')[0]
         artist = {}
 
-        artist['name'] = result.get('name')
-        artist['id'] = result.get('id')
+        artist['artist_name'] = result.get('name')
+        artist['artist_id'] = result.get('id')
+        save_json_to_database(artist)
 
         return artist
 
@@ -74,13 +98,17 @@ def get_details_from_json(dct):
     dct should be a dictionaries response from the api
     '''
     details =[]
-    tracks = dct.get('tracks')
+    print(dct)
+    tracks = dct.get('tracks').get('items')
     for track in tracks:
         track_details = {}
         track_details['id'] = track.get('id')
         track_details['title'] = track.get('name')
         track_details['artist_id'] = track.get('artists')[0].get('id')
         track_details['artist_name'] = track.get('artists')[0].get('name')
+        track_details['preview_url'] = track.get('preview_url')
+        track_details['image_url'] = track.get('album').get(
+            'images')[0].get('url')
         details.append(track_details)
 
     return details
@@ -102,20 +130,19 @@ def recommendation(**kwargs):
     if artists:
         artists = convert_name_to_id(artists, 'artist')
 
-    recommendations = sp.recommendations(seed_artists=artists, seed_tracks=tracks, seed_genres=genres, limit=limit, type='track')
+    try:
+        recommendations = sp.recommendations(
+            seed_artists=artists, seed_tracks=tracks,
+            seed_genres=genres, limit=limit, type='track'
+        )
+        print(len(recommendations))
+    except SpotifyException as e:
+        return [{"error": "calling recommendation without artist, genre or track"}, 400]
+
     recommendations = get_details_from_json(recommendations)
+    for _ in recommendations:
+        save_json_to_database(_)
+    # append the response to be used by the make_response function
+    recommendations.append(200)
+
     return recommendations
-
-
-# print(search('BXNX', 'artist', 1))
-# print(sp.search("Buju", type='artist', limit=2))
-
-# with open("artist.json", "w") as f:
-    # json.dump(sp.search("BNXN", type='artist', limit=2), f, indent=2)
-
-# print(convert_name_to_id(["Kiss me thru the phone", "Barawo", "Loyal"], 'track'))
-# print(convert_name_to_id("Chris Brown", 'artist'))
-# with open ("recommendation.json", 'w') as f:
-#     json.dump(recommendation(artists=["Chris Brown"], genres=["hip hop", "rnb"]), f)
-# print(recommendation(genres=["r-n-b", "cantopop"]))
-# print(len(sp.recommendation_genre_seeds().get('genres')))

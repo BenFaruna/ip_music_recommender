@@ -31,11 +31,26 @@ class Storage:
                 for obj in objs:
                     key = obj.id
                     new_dict[key] = obj
-        return (new_dict)
+        return new_dict
 
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def count(self, cls=None):
+        """
+        count the number of objects in storage
+        """
+        all_class = classes.values()
+
+        if not cls:
+            count = 0
+            for clas in all_class:
+                count += len(models.storage.all(clas).values())
+        else:
+            count = len(models.storage.all(cls).values())
+        
+        return count
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
@@ -64,6 +79,10 @@ class Storage:
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
         self.__session = Session
+
+    def rollback(self):
+        '''rollback pending database sessions'''
+        self.__session.rollback()
 
     def save(self):
         """commit all changes of the current database session"""

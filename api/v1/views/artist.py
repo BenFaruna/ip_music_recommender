@@ -56,6 +56,6 @@ def artist_delete(id):
     if query:
         storage.delete(query)
         storage.save()
-        return make_response(query.to_dict(), 200)
+        return make_response(jsonify({}), 200)
     else:
         return make_response({'error': 'invalid artist key'}, 500)

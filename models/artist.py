@@ -12,3 +12,4 @@ class Artist(Base, BaseModel):
 
     id = Column(String(50), primary_key=True, nullable=False)
     name = Column(String(250), nullable=False)
+    tracks = relationship('Track', cascade='all, delete, delete-orphan')

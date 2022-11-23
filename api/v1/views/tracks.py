@@ -6,8 +6,6 @@ from api.v1.views import api_view
 from models import storage
 from models.track import Track
 
-from query_functions import search, recommendation
-
 
 @api_view.route('/tracks', methods=['GET'], strict_slashes=False)
 def tracks():
@@ -63,6 +61,6 @@ def tracks_delete(id):
     if query:
         storage.delete(query)
         storage.save()
-        return make_response(query.to_dict(), 200)
+        return make_response(jsonify({}), 200)
     else:
         return make_response({'error': 'invalid track key'}, 500)

@@ -14,5 +14,6 @@ class Track(Base, BaseModel):
     title = Column(String(250), nullable=False)
     image_url = Column(String(250), nullable=False)
     preview_url = Column(String(250))
-    artist_id = Column(String(50), ForeignKey('artist.id'), nullable=False)
+    artist_id = Column(
+        String(50), ForeignKey('artist.id'), nullable=False)
     artist = relationship('Artist', uselist=False)

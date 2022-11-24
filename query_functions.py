@@ -98,8 +98,10 @@ def get_details_from_json(dct):
     dct should be a dictionaries response from the api
     '''
     details =[]
-    print(dct)
-    tracks = dct.get('tracks').get('items')
+    tracks = dct.get('tracks')
+    if type(tracks) == dict:
+        tracks = tracks.get('items', dct.get('tracks'))
+
     for track in tracks:
         track_details = {}
         track_details['id'] = track.get('id')

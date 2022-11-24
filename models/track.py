@@ -16,4 +16,4 @@ class Track(Base, BaseModel):
     preview_url = Column(String(250))
     artist_id = Column(
         String(50), ForeignKey('artist.id'), nullable=False)
-    artist = relationship('Artist', uselist=False)
+    artist = relationship('Artist', uselist=False, viewonly=True)

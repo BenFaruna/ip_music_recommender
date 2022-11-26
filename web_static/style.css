@@ -387,11 +387,20 @@ header .master_play .vol .dot::before {
 header .song_side{
     z-index: 2;
 }
+header .song_side::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 270px;
+    background-image: url('img/rsz_asakeburna.png');
+    opacity: 0.5;
+    z-index: -1;
+}
 header .song_side nav{
     width: 90%;
     height: 10%;
     margin: auto;
-    border: 1px solid #fff;
+    /*border: 1px solid #fff;*/
     display: flex;
     align-items:center;
     justify-content: space-between;
@@ -428,5 +437,105 @@ header .song_side nav ul li span {
     left: 0;
     border-radius: 20px;
 }
+header .song_side nav .search {
+    position: relative;
+    width: 40%;
+    padding: 1px 10px;
+    border-radius: 20px;
+    color: gray;
+}
+header .song_side nav .search::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: rgba(184, 184, 184,.1);
+    backdrop-filter: blur(5px);
+    z-index: -1;
+}
+header .song_side nav .search .bi {
+    font-size: 13px;
+    padding: 3px 0px 0px 10px;
+}
+header .song_side nav .search input{
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0px 10px;
+    color: #fff;
+    font-size: 12px;
+}
+header .song_side nav .user {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+header .song_side nav .user img {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px #131312;
+}
+header .song_side .content {
+    width: 90%;
+    height: 30%;
+    margin: auto;
+    /*border: 1px solid #fff;*/
+    padding-top: 20px;
+}
 
-
+header .song_side .content h1{
+    font-size: 25px;
+    font-weight: 600;
+}
+header .song_side .content p {
+    font-size: 11px;
+    font-weight: 400;
+    color: #4c5262;
+    margin: 5px;
+}
+header .song_side .content .buttons {
+    margin-top: 15px;
+}
+header .song_side .content .buttons button{
+    width: 130px;
+    height: 30px;
+    border: 2px solid #36e2ec;
+    outline: none;
+    border-radius: 20px;
+    background: #5adae0;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s linear;
+}
+header .song_side .content .buttons button:hover {
+    border: 2px solid #36e2ec;
+    background: none;
+    color: #36e2ec;
+}
+header .song_side .content .buttons button:nth-child(2) {
+    border: 2px solid #36e2ec;
+    background: none;
+    color: #36e2ec;
+}
+header .song_side .content .buttons button:nth-child(2):hover {
+    border: 2px solid #36e2ec;
+    background: #36e2ec;
+    color: #fff;
+}
+header .song_side .popular_song {
+    width: 90%;
+    height: auto;
+    border: 1px solid #fff;
+    margin: auto;
+    margin-top: 15px;
+}
+header .song_side .popular_song .h4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

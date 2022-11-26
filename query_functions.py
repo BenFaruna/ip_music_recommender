@@ -25,8 +25,9 @@ def save_json_to_database(obj):
         new_artist = Artist(**artist)
         try:
             storage.new(new_artist)
+            storage.save()
         except IntegrityError:
-            pass
+            storage.rollback()
 
     if 'id' in obj:
         track['id'] = obj.get('id')
@@ -35,13 +36,12 @@ def save_json_to_database(obj):
         track['image_url'] = obj.get('image_url')
         track['artist_id'] = obj.get('artist_id')
         new_track = Track(**track)
-        storage.new(new_track)
-
-    try:
-        storage.save()
-    except IntegrityError:
-        storage.rollback()
-        storage.save()
+    
+        try:
+            storage.new(new_track)
+            storage.save()
+        except IntegrityError:
+            storage.rollback()
 
 
 def search(query, type="track", limit=10):
@@ -110,7 +110,7 @@ def get_details_from_json(dct):
         track_details['artist_name'] = track.get('artists')[0].get('name')
         track_details['preview_url'] = track.get('preview_url')
         track_details['image_url'] = track.get('album').get(
-            'images')[0].get('url')
+            'images')[-1].get('url')
         details.append(track_details)
 
     return details

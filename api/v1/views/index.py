@@ -1,4 +1,5 @@
 from flask import jsonify, make_response, request
+from flask_cors import cross_origin
 
 from api.v1.views import api_view
 
@@ -23,6 +24,7 @@ def number_objects():
 
 
 @api_view.route('/recommend', methods=['POST'], strict_slashes=False)
+@cross_origin(send_wildcard=True)
 def recommend():
     '''
     the api route that deals with the recommnedation of tracks
@@ -47,10 +49,11 @@ def recommend():
 
 
 @api_view.route('/search', methods=['POST'], strict_slashes=False)
+@cross_origin(send_wildcard=True)
 def search_route():
     '''
     route for search query
     '''
-    query = request.values.get('search')
-    response = search(query=query)
+    query_s = request.values.get('search')
+    response = search(query=query_s)
     return make_response(jsonify(response), 200)

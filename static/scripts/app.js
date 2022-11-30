@@ -18,36 +18,57 @@ function choose(choices=genres_list) {
     return choices[index];
   }
 
+function changePlayerSong(song, start=false) {
+    // make changes to the current player song 
+    // based on song json passed as argument
+    const audio_s = document.querySelector('audio');
+    const audio = $('audio');
+    audio.attr('src', song.preview_url);
+    $('.master_play > img').attr({'src': song.image_url, 'alt': song.artist_name});
+    const title = `${song.title}<br>`+`<div class="subtitle">${song.artist_name}</div>`;
+    $('.master_play > h5').html(title);
+    if (start) {
+        audio_s.play();
+    }
+}
+
 $(document).ready(() => {
     let genreList = "";
-    for (let i=0; i < 5; i++) {
+    for (let i=0; i < 2; i++) {
         // genreList.push(choose());
         genreList = genreList + "genres=" + choose() + "&";
     }
 
-    url = "http://localhost:5001/api/v1/recommend?" + genreList + "limit=7"
+    url = "http://localhost:5001/api/v1/recommend?" + genreList + "limit=7&convert=true"
 
-    // $.post(
-    //     url,
-    //     {},
-    //     function (data) {
-    //         let songs = '';
-    //         $.each(data, function (index, value) {
-    //             songs = songs + '<li class="songItem">' +
-    //             '<span>' + (index + 1) +
-    //             '</span>' +
-    //             `<img src="${value.image_url}" alt="${value.title}">` +
-    //             '<h5>' + value.title +
-    //             '<div class="subtitle">' + value.artist_name +
-    //             '</div>' +
-    //             `<i class="bi playListPlay bi-play-circle-fill" data-id="${value.id}">` +
-    //             '</i>' +
-    //             '</h5>' +
-    //             '</li>'
-    //         });
-
-    //         $('.songList').html(songs);
-    //     });
+    $.post(
+        url,
+        {},
+        function (song) {
+            let songs = '';
+            $.each(song, function (index, value) {
+                songs = songs + 
+                `<li class="songItem" data-preview-url="${value.preview_url}">` +
+                    '<span>' + (index + 1).toString().padStart(2, '0') +
+                    '</span>' +
+                    `<img src="${value.image_url}" alt="${value.title}">` +
+                    '<h5>' + value.title +
+                        '<div class="subtitle">' + value.artist_name +
+                        '</div>' +
+                    `<i class="bi playListPlay bi-play-circle-fill" data-id="${value.id}">` +
+                    '</i>' +
+                    '</h5>' +
+                    '</li>'
+                });
+                
+                $('ul.songList').html(songs);
+                changePlayerSong(song[0], false);
+            });
+        $(window).bind('click', function (e) {
+            songEvent();
+            $(window).unbind();
+        });
+        // songEvent();
 })
 
 $('.search input').keypress(function (event) {
@@ -56,8 +77,7 @@ $('.search input').keypress(function (event) {
         let s_query = $('.search-input').val()
         $('.search-input').val(""); // empties the search bar for new searches
 
-        let url = 'http://localhost:5001/api/v1/search?' + 'search=' + s_query
-        console.log(s_query);
+        let url = 'http://localhost:5001/api/v1/search?limit=15&' + 'search=' + s_query
 
 		$.ajax({
             url: url,
@@ -70,30 +90,83 @@ $('.search input').keypress(function (event) {
                 let songs = "";
                 $.each(response, function (index, value) { 
                     songs = songs +
-                    '<div class="song">' +
-                        '<div class="song-image">' +
+                    '<li class="song-item">' +
+                        `<div class="img_play" data-id="${value.id}">` +
                             `<img src=${value.image_url} alt=${value.title}>` +
+                            `<i class="bi playListPlay bi-play-circle-fill" data-id="${value.id}"></i>` +
                         '</div>' +
-                        '<div class="song-details">' +
-                            `<a href=${value.preview_url} target="_blank">` +
-                            '<h3 class="song-name">' +
-                            value.title +
-                            '</h3>' +
-                            '<h4 class="artist-name">' +
-                            value.artist_name +
-                            '</h4>' +
-                            '</a>' +
+                        `<div class="song-details" data-id="${value.id}">` +
+                            '<h5 class="song-name">' +
+                                value.title + '<br>' +
+                                '<div class="subtitle">' +
+                                value.artist_name +
+                                '</div>' +
+                            '</h5>' +
                         '</div>' +
-                    '</div>'
+                    '</li>'
                 });
-                $('.search-result').html(songs);
+                $('ul.menu_song').html(songs);
+                $.when(songEvent()).done(searchEvent);
             },
             error: function () {
                 alert("Enter a search query and try again");
             }
         })
-
 	}
 
 })
 
+function songEvent () {
+    let song_list = document.querySelectorAll('.playListPlay');
+    song_list.forEach(element => {
+        // console.log(element.getAttribute('data-id'));
+        element.addEventListener('click', () => {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:5001/api/v1/get_details/" + element.getAttribute('data-id'),
+                success: function (response) {
+                    changePlayerSong(response, true);
+                }
+            });
+        });
+    });
+}
+
+function searchEvent () {
+    let search_list = document.querySelectorAll('.song-details');
+    search_list.forEach(element => {
+        element.addEventListener('click', () => {
+            // console.log(element);
+            let element_id = element.getAttribute('data-id');
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5001/api/v1/recommend?tracks=" + element_id + "&limit=7&convert=false",
+                dataType: "json",
+                success: function (song) {
+                    let songs = '';
+                    $.each(song, function (index, value) {
+                    songs = songs + 
+                    `<li class="songItem" data-preview-url="${value.preview_url}">` +
+                        '<span>' + (index + 1).toString().padStart(2, '0') +
+                        '</span>' +
+                        `<img src="${value.image_url}" alt="${value.title}">` +
+                        '<h5>' + value.title +
+                            '<div class="subtitle">' + value.artist_name +
+                            '</div>' +
+                        `<i class="bi playListPlay bi-play-circle-fill" data-id="${value.id}">` +
+                        '</i>' +
+                        '</h5>' +
+                        '</li>'
+                    });
+                    
+                    $('ul.songList').html(songs);
+                    songEvent();
+                },
+                error: function () {
+                    alert('Could not get song recommendations for current track');
+                }
+            });
+        })
+    })
+
+}

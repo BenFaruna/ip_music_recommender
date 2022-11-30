@@ -34,6 +34,7 @@ def recommend():
     tracks = request.values.getlist('tracks')
     genres = request.values.getlist('genres')
     limit = request.values.get('limit')
+    convert = request.values.get('convert')
 
     if not artists:
         artists = None
@@ -43,7 +44,9 @@ def recommend():
         genres = None
 
     response = recommendation(
-        artists=artists, tracks=tracks, genres=genres, limit=limit)
+        artists=artists, tracks=tracks, genres=genres,
+        limit=limit, convert=convert
+        )
 
     return make_response(jsonify(response[:-1]), response[-1])
 
@@ -55,5 +58,6 @@ def search_route():
     route for search query
     '''
     query_s = request.values.get('search')
-    response = search(query=query_s)
+    limit = request.values.get('limit')
+    response = search(query=query_s, limit=limit)
     return make_response(jsonify(response), 200)

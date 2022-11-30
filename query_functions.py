@@ -54,7 +54,8 @@ def search(query, type="track", limit=10):
 
     if result and type == "track":
         tracks = get_details_from_json(result)
-        save_json_to_database(tracks)
+        for _ in tracks:
+            save_json_to_database(_)
         return tracks
 
     elif type == "artist":
@@ -126,18 +127,23 @@ def recommendation(**kwargs):
     artists = kwargs.get('artists')
     genres = kwargs.get('genres')
     limit = kwargs.get('limit', 10)
+    convert = kwargs.get('convert')
 
-    if tracks:
-        tracks = convert_name_to_id(tracks, 'track')
-    if artists:
-        artists = convert_name_to_id(artists, 'artist')
+    if convert == 'true':
+        if tracks:
+            tracks = convert_name_to_id(tracks, 'track')
+        if artists:
+            artists = convert_name_to_id(artists, 'artist')
+    # else:
+    #     tracks = [tracks]
+    #     artists = [artists]
+    #     genres = [genres]
 
     try:
         recommendations = sp.recommendations(
             seed_artists=artists, seed_tracks=tracks,
             seed_genres=genres, limit=limit, type='track'
         )
-        print(len(recommendations))
     except SpotifyException as e:
         return [{"error": "calling recommendation without artist, genre or track"}, 400]
 

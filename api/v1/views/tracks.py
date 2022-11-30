@@ -27,6 +27,18 @@ def track(id):
         abort(404, description='ID does not exist')
 
 
+@api_view.route('/get_details/<id>', methods=['GET'], strict_slashes=False)
+def get_details(id):
+    '''gets the details of a song from the database using song id'''
+    track = storage.get(Track, id)
+    response = track.to_dict()
+    response['artist_name'] = track.artist.name
+    if response:
+        return make_response(jsonify(response))
+    else:
+        abort(404, description='ID does not exist')
+
+
 @api_view.route('/tracks', methods=['POST'], strict_slashes=False)
 def track_post():
     '''route for adding track entry into the database'''

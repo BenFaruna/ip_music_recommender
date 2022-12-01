@@ -65,7 +65,7 @@ nav {
     display: block;
 }
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f16e;
 }
 .dropdown:hover .dropdown-content {
     display: block;
@@ -83,6 +83,7 @@ nav .dropdown span{
     position: absolute;
     background-color: rgb(151, 231, 227);
     width: 85px;
+    right: 0;
     /* height: 60px; */
     /* border: 1px solid black; */
     /* min-width: 160px; */

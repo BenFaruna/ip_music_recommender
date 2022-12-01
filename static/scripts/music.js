@@ -29,6 +29,7 @@ playerButton.addEventListener('click', toggleAudio);
 //   const percentagePosition = (100*audio.currentTime) / audio.duration;
 //   timeline.style.backgroundSize = `${percentagePosition}% 100%`;
 //   timeline.value = percentagePosition;
+//   $('#seek').attr('value', percentagePosition);
 // }
 
 // audio.ontimeupdate = changeTimelinePosition;

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css') }}">
+    <title>IP Music Recommender</title>
+</head>
+
+<body>
+    <header class="navigation">
+
+        <div>
+            <h4> IP MUSIC RECOMMENDER</h4>
+            <p>Find your sound</p>
+        </div>
+
+        <nav>
+
+            <div class="dropdown">
+
+                <a href="https://github.com/BenFaruna/ip_music_recommender"><span>About</span></a>
+
+            </div>
+
+            <div class="dropdown">
+
+                <a href="https://github.com/BenFaruna/ip_music_recommender"><span>Github</span></a>
+
+            </div>
+
+            <div class="dropdown">
+
+                <span>Contacts</span>
+
+                <div class="dropdown-content">
+
+                    <a href="https://github.com/BenFaruna">Benjamin</a>
+                    <a href="https://github.com/Elisheba12">Elizabeth</a>
+                    <a href="https://github.com/Ade3164">Adebayo</a>
+
+                </div>
+
+            </div>
+
+            <!-- <a href="">/a>
+            <a href="https://github.com/BenFaruna/ip_music_recommender"><span>Github</span></a> -->
+        </nav>
+
+    </header>
+
+    <main>
+
+        <div class="cards">
+            <div class="one">
+                <img class="image1" src="{{ url_for('static', filename='img/thumbs-up-transparent-background-23.png') }}" alt="">
+                <h4 class="one1">
+                    Recommendations
+                </h4>
+                <p class="exp1">Let's get you started.</p>
+            </div>
+
+            <div class="one">
+                <img class="image2" src="https://icons.iconarchive.com/icons/ccard3dev/dynamic-yosemite/512/Preview-icon.png" alt="">
+                <h4 class="two">Song Preview</h4>
+                <p class="exp2">Preview your song of choice. <br>
+                    Don't like it? pick another one.</p>
+            </div>
+
+            <div class="one">
+                <img class="image3" src="https://icons.iconarchive.com/icons/blackvariant/button-ui-system-apps/512/Preview-2-icon.png" alt="">
+                <h4 class="three">Search</h4>
+                <p class="exp3">Got something fancy in mind? <br>
+                    Search for it.</p>
+            </div>
+        </div>
+
+        <a href="{{ url_for('home') }}"><button>Start</button></a>
+
+    </main>
+</body>
+
+</html>

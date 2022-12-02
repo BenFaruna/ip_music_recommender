@@ -1,13 +1,34 @@
+import app
+
 from flask import jsonify, make_response, request
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 
 from api.v1.views import api_view
 
+from app import app
 from models import storage
 from models.artist import Artist
 from models.track import Track
 
 from query_functions import recommendation, search
+
+# cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+
+@app.teardown_appcontext
+def close_db(error):
+    """ Close Storage """
+    storage.close()
+
+
+@api_view.errorhandler(404)
+def not_found(error):
+    """ 404 Error
+    ---
+    responses:
+      404:
+        description: a resource was not found
+    """
+    return make_response(jsonify({'error': "Not found"}), 404)
 
 
 @api_view.route('/stats', methods=['GET'], strict_slashes=False)

@@ -39,7 +39,7 @@ $(document).ready(() => {
         genreList = genreList + "genres=" + choose() + "&";
     }
 
-    url = "http://localhost:5001/api/v1/recommend?" + genreList + "limit=7&convert=true"
+    url = "http://localhost:5000/api/v1/recommend?" + genreList + "limit=7&convert=true"
 
     $.post(
         url,
@@ -77,7 +77,7 @@ $('.search input').keypress(function (event) {
         let s_query = $('.search-input').val()
         $('.search-input').val(""); // empties the search bar for new searches
 
-        let url = 'http://localhost:5001/api/v1/search?limit=15&' + 'search=' + s_query
+        let url = 'http://localhost:5000/api/v1/search?limit=15&' + 'search=' + s_query
 
 		$.ajax({
             url: url,
@@ -123,7 +123,7 @@ function songEvent () {
         element.addEventListener('click', () => {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5001/api/v1/get_details/" + element.getAttribute('data-id'),
+                url: "http://localhost:5000/api/v1/get_details/" + element.getAttribute('data-id'),
                 success: function (response) {
                     changePlayerSong(response, true);
                 }
@@ -140,7 +140,7 @@ function searchEvent () {
             let element_id = element.getAttribute('data-id');
             $.ajax({
                 type: "POST",
-                url: "http://localhost:5001/api/v1/recommend?tracks=" + element_id + "&limit=7&convert=false",
+                url: "http://localhost:5000/api/v1/recommend?tracks=" + element_id + "&limit=7&convert=false",
                 dataType: "json",
                 success: function (song) {
                     let songs = '';

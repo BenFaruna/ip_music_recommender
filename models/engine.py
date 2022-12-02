@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''module containing storage engine class
 '''
+from os import getenv
 import models
 
 from sqlalchemy import create_engine
@@ -13,14 +14,14 @@ from models.user import User
 
 
 classes = {'Artist': Artist, 'Track': Track, 'User': User}
+db_url = getenv('db_url', 'mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db')
 
 class Storage:
     __engine = None
     __session = None
 
     def __init__(self):
-        self.__engine = create_engine(
-            'mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db')
+        self.__engine = create_engine(db_url)
 
     def all(self, cls=None):
         """query on the current database session"""

@@ -1,11 +1,10 @@
-import app
+import main
 
 from flask import jsonify, make_response, request
 from flask_cors import CORS, cross_origin
 
 from api.v1.views import api_view
 
-from app import app
 from models import storage
 from models.artist import Artist
 from models.track import Track
@@ -13,12 +12,6 @@ from models.track import Track
 from query_functions import recommendation, search
 
 # cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-
-@app.teardown_appcontext
-def close_db(error):
-    """ Close Storage """
-    storage.close()
-
 
 @api_view.errorhandler(404)
 def not_found(error):

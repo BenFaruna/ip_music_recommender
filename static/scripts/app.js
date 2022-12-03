@@ -28,7 +28,7 @@ function changePlayerSong(song, start=false) {
     const title = `${song.title}<br>`+`<div class="subtitle">${song.artist_name}</div>`;
     $('.master_play > h5').html(title);
     if (start) {
-        audio_s.play();
+        toogleAudio();
     }
 }
 

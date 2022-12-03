@@ -14,7 +14,7 @@ from models.user import User
 
 
 classes = {'Artist': Artist, 'Track': Track, 'User': User}
-db_url = getenv('db_url', 'mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db')
+db_url = getenv('DATABASE_URL', 'mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db')
 
 class Storage:
     __engine = None

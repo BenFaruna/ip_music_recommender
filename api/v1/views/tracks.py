@@ -29,7 +29,10 @@ def track(id):
 
 @api_view.route('/get_details/<id>', methods=['GET'], strict_slashes=False)
 def get_details(id):
-    '''gets the details of a song from the database using song id'''
+    '''
+    gets the details of a song including artist name
+    from the database using song id
+    '''
     track = storage.get(Track, id)
     response = track.to_dict()
     response['artist_name'] = track.artist.name

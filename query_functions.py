@@ -134,10 +134,6 @@ def recommendation(**kwargs):
             tracks = convert_name_to_id(tracks, 'track')
         if artists:
             artists = convert_name_to_id(artists, 'artist')
-    # else:
-    #     tracks = [tracks]
-    #     artists = [artists]
-    #     genres = [genres]
 
     try:
         recommendations = sp.recommendations(

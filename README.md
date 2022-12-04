@@ -1,12 +1,8 @@
-
 # IP Music Recommender
 
 ## INTRODUCTION
 
 * Song recommendations have existed for a long time, but in majority of the scenarios the recommendation is determined after learning the user preferences over a period of time, like looking at his past song preferences, time he listens to the music etc. 
-* In this paper we propose a new approach to song recommendation, where location, artist popularity and geographical location can influence the recommended songs, user search history also impact the types of songs that is recommended to listiners.
-
-### DESCRIPTION
 
 Recommendation system is a filtering system, the purpose of which is to predict the preference that a user would give to a particular element, in our case – to a song. It is a core of huge engines that work by certain recommender algorithms and suggest a single item or a set of items to users based on such predictions.
 
@@ -17,7 +13,11 @@ content-based (recommendations based on the similarity of content or, in our cas
 collaborative (recommendations based on similarity of users’ preferences and using matrices with ratings for each content piece, in our case — a song)
 Geographical-base( recommendation base on users loaction and music populaity in a specific area).
 
-### LIBRARIES USED 
+### Application Description
+IP Music recommender is a music recommendation application that helps users find new songs attuned to their taste and style of music. The application relies on user search and selection to give song recommendations based on current selection. The application allows users to preview songs to get a feel of the songs recommmended and searched. This can help users make sing picks for a new playlist without getting to play songs in full.
+The application relies on Spotify's API to function and give recommendation, it is not a music streaming web application, although there is a function to preview songs, it is but a fraction of the actual song.
+
+### Libraries Used 
 * Flask
 * JQuery
 * Spotipy
@@ -25,3 +25,50 @@ Geographical-base( recommendation base on users loaction and music populaity in 
 
 * DATABASE: *MySql*
 * LANGUAGES: *HTML, CSS, JavaScript, Python*
+
+The application was built by [Adebayo Idris](https://github.com/Ade3164), [Benjamin Faruna Adejo](https://github.com/BenFaruna) and [Elizabeth W. Salako](https://github.com/Elisheba12)
+
+Checkout the live site on https://ip-music-recommender.onrender.com.
+
+## INSTALLATION
+To use this application on your local machine you must have python and MySql database installed on your machine and you need a Spotify developers account, if you don't have one head to https://developer.spotify.com to create an account.
+
+1. Clone the repository onto your local machine and navigate into the folder.
+
+```
+$ git clone https://github.com/BenFaruna/ip_music_recommender.git
+$ cd ip_music_recommender
+ip_music_recommender$
+```
+
+2. Using the file [setup_mysql_user.sql](./setup_mysql_user.sql) copy and paste the commands on MySql shell environment to create a database and user.
+
+3. Create a virtual machine (optional) and install the pacages used for the project using pip.
+To learn about virtual environments follow this [link](https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/)
+
+On windows (powershell)
+```powershell
+ip_music_recommender$ $env:SPOTIPY_CLIENT_ID = "<your_client_id>"
+ip_music_recommender$ $env:SPOTIPY_CLIENT_SECRET = "<your_client_secret>"
+ip_music_recommender$ $env:DATABASE_URL = "mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db"
+```
+On linux (shell)
+```sh
+ip_music_recommender$ SPOTIPY_CLIENT_SECRET="<your_client_id>"
+ip_music_recommender$ SPOTIPY_CLIENT_SECRET="<your_client_secret>"
+ip_music_recommender$ DATABASE_URL="mysql+mysqldb://music_dev:music_dev_pwd@localhost/music_dev_db"
+```
+4. Once environmental variables have been added, you can start the application.
+
+```
+ip_music_recommender$ python main.py
+```
+Once that command has been entered the program will be started on localhost port 5000.
+
+On your browser, enter the address http://localhost:5000/home to see the web application.
+
+## USAGE
+
+## CONTRIBUTING
+
+## RELATED PROJECTS

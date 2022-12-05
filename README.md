@@ -26,8 +26,6 @@ The application relies on Spotify's API to function and give recommendation, it 
 * DATABASE: *MySql*
 * LANGUAGES: *HTML, CSS, JavaScript, Python*
 
-The application was built by [Adebayo Idris](https://github.com/Ade3164), [Benjamin Faruna Adejo](https://github.com/BenFaruna) and [Elizabeth W. Salako](https://github.com/Elisheba12)
-
 Checkout the live site on https://ip-music-recommender.onrender.com.
 
 ## INSTALLATION
@@ -73,7 +71,7 @@ On your browser, enter the address http://localhost:5000/home to see the web app
 
 ## RELATED PROJECTS
 
-## Authors
+## AUTHORS
 
 Elizabeth W. Salako - [Github](https://github.com/Elisheba12) / [Twitter](https://twitter.com/lisheab) / [LinkedIn]()
 

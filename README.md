@@ -76,5 +76,7 @@ On your browser, enter the address http://localhost:5000/home to see the web app
 ## Authors
 
 Elizabeth W. Salako - [Github](https://github.com/Elisheba12) / [Twitter](https://twitter.com/lisheab) / [linkedIn]()
+
 Benjamin Faruna Adejo - [Github](https://github.com/BenFaruna) / [Twitter](https://github.com/BenFaruna) / [LinkedIn](https://www.linkedin.com/in/benjaminfaruna)
+
 Adebayo Idris / [Github](https://github.com/Ade3164) / [Twitter](https://twitter.com/eedrees3?t=xKf3ncU9T-kJsLiFtppP4w&s=09) / [LinkedIn]()

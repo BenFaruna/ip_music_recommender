@@ -26,8 +26,6 @@ The application relies on Spotify's API to function and give recommendation, it 
 * DATABASE: *MySql*
 * LANGUAGES: *HTML, CSS, JavaScript, Python*
 
-The application was built by [Adebayo Idris](https://github.com/Ade3164), [Benjamin Faruna Adejo](https://github.com/BenFaruna) and [Elizabeth W. Salako](https://github.com/Elisheba12)
-
 Checkout the live site on https://ip-music-recommender.onrender.com.
 
 ## INSTALLATION
@@ -83,5 +81,13 @@ After pull request, the team will scrutinize your work and merge it to the codeb
 **NB: After every successful merge with the main branch, any branch created to add a feature or fix a bug will be deleted.**
 
 ## RELATED PROJECTS
+
+## AUTHORS
+
+Elizabeth W. Salako - [Github](https://github.com/Elisheba12) / [Twitter](https://twitter.com/lisheab) / [LinkedIn]()
+
+Benjamin Faruna Adejo - [Github](https://github.com/BenFaruna) / [Twitter](https://twitter.com/neodynamics) / [LinkedIn](https://www.linkedin.com/in/benjaminfaruna)
+
+Adebayo Idris - [Github](https://github.com/Ade3164) / [Twitter](https://twitter.com/eedrees3?t=xKf3ncU9T-kJsLiFtppP4w&s=09) / [LinkedIn]()
 * [Gnoosic](https://www.gnoosic.com/)
 * [Last.fm](https://www.last.fm/)

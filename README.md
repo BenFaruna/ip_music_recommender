@@ -81,6 +81,8 @@ After pull request, the team will scrutinize your work and merge it to the codeb
 **NB: After every successful merge with the main branch, any branch created to add a feature or fix a bug will be deleted.**
 
 ## RELATED PROJECTS
+* [Gnoosic](https://www.gnoosic.com/)
+* [Last.fm](https://www.last.fm/)
 
 ## AUTHORS
 
@@ -89,5 +91,3 @@ Elizabeth W. Salako - [Github](https://github.com/Elisheba12) / [Twitter](https:
 Benjamin Faruna Adejo - [Github](https://github.com/BenFaruna) / [Twitter](https://twitter.com/neodynamics) / [LinkedIn](https://www.linkedin.com/in/benjaminfaruna)
 
 Adebayo Idris - [Github](https://github.com/Ade3164) / [Twitter](https://twitter.com/eedrees3?t=xKf3ncU9T-kJsLiFtppP4w&s=09) / [LinkedIn]()
-* [Gnoosic](https://www.gnoosic.com/)
-* [Last.fm](https://www.last.fm/)

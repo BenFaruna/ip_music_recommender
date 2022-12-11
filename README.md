@@ -68,7 +68,20 @@ Once that command has been entered the program will be started on localhost port
 On your browser, enter the address http://localhost:5000/home to see the web application.
 
 ## USAGE
+The application is intended for users seeking to update their song playlists and also users looking to discover new tracks. It is not a substitute for music players, and not a music downloading site and should not be used for such purposes.
 
 ## CONTRIBUTING
+For any bug detected, or feature request:
+1. Open a ticket on github.
+2. Fork the repository
+3. Create a branch for fixing the bug or adding the feature.
+4. Create solution and test solution to ensure it does not break existing features.
+5. Push branch to github and send a pull request.
+
+After pull request, the team will scrutinize your work and merge it to the codebase if it solves the problem, if not a comprehensive feedback will be given on what went wrong.
+
+**NB: After every successful merge with the main branch, any branch created to add a feature or fix a bug will be deleted.**
 
 ## RELATED PROJECTS
+* [Gnoosic](https://www.gnoosic.com/)
+* [Last.fm](https://www.last.fm/)
